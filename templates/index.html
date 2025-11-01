@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bantuan Sosial - Kementerian Sosial RI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+            color: #1e3c72;
+        }
+        
+        .logo-text h1 {
+            color: #1e3c72;
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+        
+        .logo-text p {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background: #1e3c72;
+            color: white;
+        }
+        
+        .btn-login:hover {
+            background: #2a5298;
+        }
+        
+        .btn-register {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-register:hover {
+            background: #c0392b;
+        }
+        
+        .hero {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            color: #1e3c72;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #1e3c72;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .features {
+            background: #f8f9fa;
+            padding: 60px 20px;
+        }
+        
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #1e3c72;
+        }
+        
+        .feature-card h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .testimonials {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .testimonials h2 {
+            color: #1e3c72;
+            margin-bottom: 40px;
+        }
+        
+        .testimonial-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        
+        .testimonial-text {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            color: #1e3c72;
+            font-weight: bold;
+        }
+        
+        .footer {
+            background: #1e3c72;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .stats,
+            .features-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🏛️</div>
+                <div class="logo-text">
+                    <h1>BANTUAN SOSIAL</h1>
+                    <p>Kementerian Sosial Republik Indonesia</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="{{ url_for('login') }}" class="btn btn-login">MASUK</a>
+                <a href="{{ url_for('register') }}" class="btn btn-register">DAFTAR</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Informasi Bantuan Sosial Pemerintah</h2>
+            <p>Layanan resmi untuk mengecek status bantuan sosial dari Kementerian Sosial Republik Indonesia</p>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">8.4 Juta</div>
+                    <div class="stat-label">Keluarga Penerima Manfaat</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">34</div>
+                    <div class="stat-label">Provinsi Terjangkau</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98.2%</div>
+                    <div class="stat-label">Kepuasan Masyarakat</div>
+                </div>
+            </div>
+            
+            <a href="{{ url_for('login') }}" class="btn btn-login" style="padding: 15px 40px; font-size: 16px;">
+                CEK STATUS BANSOS ANDA
+            </a>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Cek Status Online</h3>
+                <p>Pantau status bantuan sosial Anda secara real-time melalui platform digital resmi</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Proses Cepat</h3>
+                <p>Informasi tersedia 24 jam dengan proses verifikasi yang cepat dan akurat</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Data Terlindungi</h3>
+                <p>Keamanan data penerima bansos dijamin sesuai standar pemerintah</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="testimonials">
+        <h2>Testimoni Penerima Manfaat</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "Bansos sangat membantu keluarga kami di masa sulit. Proses pengecekan statusnya mudah dan cepat melalui website ini."
+                </div>
+                <div class="testimonial-author">- Sari, Penerima PKH Jakarta</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "Alhamdulillah bansos tepat waktu. Informasi melalui website resmi ini sangat jelas dan tidak menyesatkan."
+                </div>
+                <div class="testimonial-author">- Budi, Penerima BLT Bandung</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <h3>BANTUAN SOSIAL</h3>
+            <p>Kementerian Sosial Republik Indonesia</p>
+            <div class="footer-links">
+                <a href="#">Tentang Kami</a>
+                <a href="#">Kebijakan Privasi</a>
+                <a href="#">Syarat & Ketentuan</a>
+                <a href="#">Bantuan</a>
+            </div>
+            <div class="copyright">
+                © 2024 Kementerian Sosial Republik Indonesia. Semua Hak Dilindungi.
+            </div>
+        </div>
+    </div>
+</body>
+  </html>
+  
