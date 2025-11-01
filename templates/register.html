@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar - Bantuan Sosial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .register-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .logo p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #27ae60;
+        }
+        
+        .login-type {
+            margin-bottom: 20px;
+        }
+        
+        .login-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .login-option {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .login-option.active {
+            border-color: #3498db;
+            background: #f8f9fa;
+        }
+        
+        .error {
+            background: #e74c3c;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login-link a {
+            color: #3498db;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="logo">
+            <h1>DAFTAR AKUN</h1>
+            <p>Bantuan Sosial Pemerintah</p>
+        </div>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="login-type">
+                <label>Daftar dengan:</label>
+                <div class="login-options">
+                    <div class="login-option active" onclick="selectLoginType('email')">
+                        Email
+                    </div>
+                    <div class="login-option" onclick="selectLoginType('instagram')">
+                        Instagram
+                    </div>
+                    <div class="login-option" onclick="selectLoginType('facebook')">
+                        Facebook
+                    </div>
+                </div>
+                <input type="hidden" name="login_type" id="login_type" value="email">
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="{{ request.form.get('username', '') }}" required placeholder="masukkan username">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ request.form.get('email', '') }}" required placeholder="masukkan email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="masukkan password">
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Konfirmasi Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required placeholder="ulangi password">
+            </div>
+
+            <button type="submit" class="btn">DAFTAR</button>
+        </form>
+
+        <div class="login-link">
+            Sudah punya akun? <a href="{{ url_for('login') }}">Login di sini</a>
+        </div>
+    </div>
+
+    <script>
+        function selectLoginType(type) {
+            document.getElementById('login_type').value = type;
+            
+            // Update active class
+            document.querySelectorAll('.login-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

